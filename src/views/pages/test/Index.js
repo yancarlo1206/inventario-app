@@ -11,16 +11,10 @@ const Index = () => {
         <>
         <TestProvider>
         <Routes>
-            <Route exact path="/test">
-                <List />
-            </Route>
-            <Route exact path="/test/detail/:id" >
-                <Form />
-            </Route>
-            <Route exact path="/test/add" >
-                <Form />
-            </Route>
-            <Navigate from="*" to="/" />
+            <Route exact path="/" element={<List />} />
+            <Route exact path="/detail/:id" element={<Form />} />
+            <Route exact path="/add" element={<Form />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </TestProvider>
         </>

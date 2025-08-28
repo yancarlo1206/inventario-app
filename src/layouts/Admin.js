@@ -24,6 +24,10 @@ import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
+import { NotificationProvider } from "context/NotificationContext";
+import { LoadingProvider } from "context/LoadingContext";
+import { InternetConnectionProvider } from "context/InternetConnectionContext";
+
 import routes from "routes.js";
 
 const Admin = (props) => {
@@ -71,6 +75,9 @@ const Admin = (props) => {
           imgAlt: "...",
         }}
       />
+      <LoadingProvider>
+      <NotificationProvider >
+      <InternetConnectionProvider >
       <div className="main-content" ref={mainContent}>
         <AdminNavbar
           {...props}
@@ -84,6 +91,9 @@ const Admin = (props) => {
           <AdminFooter />
         </Container>
       </div>
+      </InternetConnectionProvider>
+      </NotificationProvider>
+      </LoadingProvider>
     </>
   );
 };
