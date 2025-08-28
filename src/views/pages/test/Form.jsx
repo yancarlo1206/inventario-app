@@ -7,8 +7,6 @@ import TestContext from "context/TestContext";
 import TestFormValidate from "../../../services/testForm";
 import { useForm } from "hooks/useForm";
 
-import CardHeaderSupport from "components/CardHeader/CardHeaderSupport";
-
 const initialForm = {
     description: "",
 };
@@ -74,12 +72,6 @@ const Formulario = ( ) => {
             <Row>
                 <div className="col">
                 <Card>
-                    <CardHeaderSupport 
-                        titleHeader="Delivery Zone Form"
-                        textHeader="This is the delivery zone management form." 
-                        titleViewSupport={titleViewSupport}
-                        urlViewSupport={urlViewSupport}
-                        urlManualPdf={urlManualPdf} />
                     <CardBody>
                         <Form>
                             <h6 className="heading-small text-muted mb-4">
