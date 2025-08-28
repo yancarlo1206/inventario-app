@@ -37,7 +37,7 @@ var routes = [
     name: "Test",
     icon: "ni ni-watch-time text-primary",
     component: <Test />,
-    layout: "/test",
+    layout: "/admin",
   },
   {
     path: "/icons",

@@ -1,42 +1,10 @@
 import React, { useEffect, useState } from "react";
-import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
-import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
+
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import { Alert, Button, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 
 import Moment from 'moment';
-
-const pagination = paginationFactory({
-  page: 1,
-  alwaysShowAllBtns: true,
-  showTotal: true,
-  withFirstAndLast: false,
-  sizePerPageRenderer: ({ options, currSizePerPage, onSizePerPageChange }) => (
-    <div className="dataTables_length" id="datatable-basic_length">
-      <label>
-        Show{" "}
-        {
-          <select
-            name="datatable-basic_length"
-            aria-controls="datatable-basic"
-            className="form-control form-control-sm"
-            onChange={(e) => onSizePerPageChange(e.target.value)}
-          >
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-        }{" "}
-        entries.
-      </label>
-    </div>
-  ),
-});
-
-const { SearchBar } = Search;
 
 function Index({ data, columns , detail, deleteData, downloadFile}) {
 
@@ -52,38 +20,7 @@ function Index({ data, columns , detail, deleteData, downloadFile}) {
     </Alert>
   );
 
-  const linkFollow = (cell, row, rowIndex, formatExtraData) => {
-    return (
-      <>
-        {detail ? (
-          <Link 
-            className='btn btn-hensall btn-sm'
-            color="hensall"
-            to={"/admin/"+detail+"/detail/"+row.id}
-          >
-            Detail
-          </Link>  
-        ) 
-        :("")}
-        {downloadFile ? (
-          <Button 
-            className='btn btn-hensall btn-sm'
-            onClick={e => handleDownload(e, row.id, row.url)}
-          >
-            Download
-          </Button>
-        ):("")}
-        {deleteData ? (
-          <Button
-              className='btn btn-hensall-cancel btn-sm'
-              onClick={e => handleDelete(e, row.id)}
-          >
-            Delete
-          </Button>
-        ):("")}
-      </>
-    );
-  };
+  
 
   const date = (cell, row, rowIndex, formatExtraData) => {
     return (
@@ -113,7 +50,7 @@ function Index({ data, columns , detail, deleteData, downloadFile}) {
   const object = {
     dataField: "action",
     text: "ACTION",
-    formatter: linkFollow,
+    formatter: "linkFollow",
     sort: false
   }
 
@@ -187,37 +124,7 @@ function Index({ data, columns , detail, deleteData, downloadFile}) {
       {state.alert}
       {viewTable && data.length > 0 ? ( 
         <>
-        <ToolkitProvider
-          data={data}
-          keyField="id"
-          columns={columnTable}
-          search
-          >
-          {(props) => (
-            <div className="py-4 table-responsive">
-              <div
-                id="datatable-basic_filter"
-                className="dataTables_filter px-4 pb-1"
-              >
-                <label>
-                  Search:
-                  <SearchBar
-                    className="form-control-sm"
-                    placeholder=""
-                    {...props.searchProps}
-                  />
-                </label>
-              </div>
-              <BootstrapTable
-                {...props.baseProps}
-                bootstrap4={true}
-                pagination={pagination}
-                bordered={false}
-                noDataIndication={NoDataIndication}
-              />
-            </div>
-          )}
-        </ToolkitProvider>
+        
         </> 
       ) : (
         <CardBody>
