@@ -1,14 +1,17 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col } from "reactstrap";
   
-import SimpleHeader from "components/Headers/SimpleHeader.js";
 import { Link, useParams } from "react-router-dom";
 import TestContext from "context/TestContext";
-import TestFormValidate from "../../../services/testForm";
+import ProveedorFormValidate from "../../../services/ProveedorForm";
 import { useForm } from "hooks/useForm";
+import Header from "components/Headers/Header";
 
 const initialForm = {
-    description: "",
+    nombre: "",
+    direccion: "",
+    telefono: "",
+    correo: "",
 };
 
 const Formulario = ( ) => {
@@ -30,7 +33,7 @@ const Formulario = ( ) => {
         handleChange,
         handleBlur,
         handleSubmit,
-    } = useForm(initialForm, TestFormValidate.validationsForm);
+    } = useForm(initialForm, ProveedorFormValidate.validationsForm);
 
     const { id } = useParams();
 
@@ -38,9 +41,9 @@ const Formulario = ( ) => {
         if(id){
             setToDetail(id);
             setToUpdate(id);
-            setModule("update");
+            setModule("actualizar");
         }else{
-            setModule("add");
+            setModule("agregar");
         }
     },[]);
 
@@ -67,40 +70,122 @@ const Formulario = ( ) => {
 
     return (
       <>
-        <SimpleHeader name={"Delivery Zone "+module?.toUpperCase()} parentName="Delivery Zone" toUrl="deliveries_zones" />
-        <Container className="mt--6" fluid>
-            <Row>
+        <Header />
+            <Container className="mt--7" fluid>
+              <Row>
                 <div className="col">
-                <Card>
+                  <Card className="shadow">
+                    <CardHeader className="">
+                      <div className="align-items-center row">
+                        <div className="col-11">
+                          <h3 className="mb-0">{module?.toUpperCase()} PROVEEDOR</h3>
+                          <p className="text-sm mb-0">
+                            Formulario de gestion de proveedores
+                          </p>
+                        </div>
+                      </div>
+                    </CardHeader>
                     <CardBody>
                         <Form>
-                            <h6 className="heading-small text-muted mb-4">
-                            Information
-                            </h6>
                             <div className="pl-lg-4">
                             <Row>
                                 <Col lg="12">
                                     <FormGroup>
                                         <label
                                         className="form-control-label"
-                                        htmlFor="input-description"
+                                        htmlFor="input-nombre"
                                         >
-                                        Description <span className="text-hensall">*</span>
+                                        Nombre <span className="text-danger">*</span>
                                         </label>
                                         <Input
                                         className="form-control"
-                                        id="input-description"
+                                        id="input-nombre"
                                         placeholder=""
                                         type="text"
-                                        name="description"
+                                        name="nombre"
                                         required="required"
-                                        invalid={errors.description !== ""}
+                                        invalid={errors.nombre !== ""}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        defaultValue={data.description}
+                                        defaultValue={data.nombre}
                                         />
                                         <div className="invalid-feedback">
-                                            {errors.description}
+                                            {errors.nombre}
+                                        </div>
+                                    </FormGroup>
+                                </Col>
+                                <Col lg="12">
+                                    <FormGroup>
+                                        <label
+                                        className="form-control-label"
+                                        htmlFor="input-direccion"
+                                        >
+                                        Direccion <span className="text-danger">*</span>
+                                        </label>
+                                        <Input
+                                        className="form-control"
+                                        id="input-direccion"
+                                        placeholder=""
+                                        type="text"
+                                        name="direccion"
+                                        required="required"
+                                        invalid={errors.direccion !== ""}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        defaultValue={data.direccion}
+                                        />
+                                        <div className="invalid-feedback">
+                                            {errors.direccion}
+                                        </div>
+                                    </FormGroup>
+                                </Col>
+                                <Col lg="12">
+                                    <FormGroup>
+                                        <label
+                                        className="form-control-label"
+                                        htmlFor="input-telefono"
+                                        >
+                                        Telefono <span className="text-danger">*</span>
+                                        </label>
+                                        <Input
+                                        className="form-control"
+                                        id="input-telefono"
+                                        placeholder=""
+                                        type="text"
+                                        name="telefono"
+                                        required="required"
+                                        invalid={errors.telefono !== ""}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        defaultValue={data.telefono}
+                                        />
+                                        <div className="invalid-feedback">
+                                            {errors.telefono}
+                                        </div>
+                                    </FormGroup>
+                                </Col>
+                                <Col lg="12">
+                                    <FormGroup>
+                                        <label
+                                        className="form-control-label"
+                                        htmlFor="input-correo"
+                                        >
+                                        Correo <span className="text-danger">*</span>
+                                        </label>
+                                        <Input
+                                        className="form-control"
+                                        id="input-correo"
+                                        placeholder=""
+                                        type="text"
+                                        name="correo"
+                                        required="required"
+                                        invalid={errors.correo !== ""}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        defaultValue={data.correo}
+                                        />
+                                        <div className="invalid-feedback">
+                                            {errors.correo}
                                         </div>
                                     </FormGroup>
                                 </Col>
@@ -108,27 +193,27 @@ const Formulario = ( ) => {
                             <Row className="col justify-content-end">
                                 {module == "update" ? (
                                     <Button
-                                        color="hensall"
+                                        color="primary"
                                         href=""
                                         onClick={handleUpdate}
                                         >
-                                        Update
+                                        Actualizar
                                     </Button>
                                 ) : (
                                     <Button
-                                        color="hensall"
+                                        color="primary"
                                         href=""
                                         onClick={handleSave}
                                         >
-                                        Save 
+                                        Guardar 
                                     </Button>
                                 )}
                                 <Link
-                                    className="btn btn-hensall-cancel"
+                                    className="btn btn-danger"
                                     color="default"
-                                    to={"/admin/deliveries_zones"}
+                                    to={"/admin/test"}
                                     >
-                                    Cancel
+                                    Cancelar
                                 </Link>
                             </Row>
                             </div>
