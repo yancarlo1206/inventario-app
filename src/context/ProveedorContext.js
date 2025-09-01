@@ -6,9 +6,9 @@ import NotificationContext from "context/NotificationContext";
 import LoadingContext from "context/LoadingContext";
 import { useNavigate } from "react-router";
 
-const TestContext = createContext();
+const ProveedorContext = createContext();
 
-const TestProvider = ({children}) => {
+const ProveedorProvider = ({children}) => {
 
     const [toDetail, setToDetail] = useState();
     const [toUpdate, setToUpdate] = useState();
@@ -53,7 +53,7 @@ const TestProvider = ({children}) => {
         setLoading(true);
         url = url+"/"+toUpdate;
         api.get(url).then((res) => {
-            setDetail(res);
+            setDetail(res.data);
             setLoading(false);
         });
     };
@@ -69,8 +69,8 @@ const TestProvider = ({children}) => {
         }
         api.post(endpoint, options).then((res) => {
             if(!res.err){
-                dispatch({ type: TYPES.CREATE_DATA, payload: res });
-                navigate('/admin/deliveries_zones/');
+                dispatch({ type: TYPES.CREATE_DATA, payload: res.data });
+                navigate('/admin/proveedor/');
                 setType("success");
                 setMessage("The registry was updated correctly");
                 setStatus(1);
@@ -92,9 +92,9 @@ const TestProvider = ({children}) => {
         }
         api.put(endpoint, options).then((res) => {
             if(!res.err){
-                setDetail(res);
-                dispatch({ type: TYPES.UPDATE_DATA, payload: res });
-                navigate('/admin/deliveries_zones');
+                setDetail(res.data);
+                dispatch({ type: TYPES.UPDATE_DATA, payload: res.data });
+                navigate('/admin/proveedor');
                 setType("success");
                 setMessage("The registry was updated correctly");
                 setStatus(1);
@@ -132,8 +132,8 @@ const TestProvider = ({children}) => {
         setModule, setDetail 
     };
 
-    return <TestContext.Provider value={data}>{children}</TestContext.Provider>;
+    return <ProveedorContext.Provider value={data}>{children}</ProveedorContext.Provider>;
 }
 
-export { TestProvider };
-export default TestContext;
+export { ProveedorProvider };
+export default ProveedorContext;

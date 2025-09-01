@@ -17,11 +17,37 @@
 */
 
 // reactstrap components
+import { useRef, useContext, useEffect } from "react";
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 
+import NotificationAlert from "react-notification-alert";
+import Notification from "../../services/notification";
+
+import NotificationContext from "context/NotificationContext";
+import LoadingContext from "context/LoadingContext";
+
+import Loading from "components/Loading/Loading.js";
+
 const Header = () => {
+
+  const notificationAlertRef = useRef(null);
+
+  const { status, type, message, setStatus } = useContext(NotificationContext);
+  const { loading } = useContext(LoadingContext);
+
+  useEffect(() => {
+    if(status){
+        Notification.viewNotification(type, message, notificationAlertRef);
+        setStatus(0);
+    }
+  },[status]);
+
   return (
     <>
+      <div className="rna-wrapper">
+        <NotificationAlert ref={notificationAlertRef} />
+      </div>
+      {loading ? <Loading />:""}
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
         <Container fluid>
           <div className="header-body">

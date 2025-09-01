@@ -22,7 +22,7 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
-import Test from "views/pages/test/Index";
+import Proveedor from "views/pages/proveedor/Index";
 
 var routes = [
   {
@@ -33,10 +33,10 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/test",
-    name: "Test",
+    path: "/proveedor",
+    name: "Proveedor",
     icon: "ni ni-watch-time text-primary",
-    component: <Test />,
+    component: <Proveedor />,
     layout: "/admin",
   },
   {

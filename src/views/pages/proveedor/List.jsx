@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import TestContext from "../../../context/TestContext";
+import ProveedorContext from "../../../context/ProveedorContext";
 import Header from "components/Headers/Header.js";
-import ListGeneric from "./../../../components/List/Index.js"
+import ListGeneric from "../../../components/List/Index.js"
 import { Card, CardHeader, CardBody, Container, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
@@ -12,7 +12,7 @@ function List({ tab }) {
 
   const { 
     db:data, setDetail,  setToDetail, setToUpdate, setViewModal, setModule, deleteData
-  } = useContext(TestContext);
+  } = useContext(ProveedorContext);
 
   const [filter, setFilter] = useState("");
 
@@ -36,7 +36,7 @@ function List({ tab }) {
       <> 
       <Link className='btn btn-primary btn-sm'
             color="primary"
-            to={"/admin/test/detail/"+row.id}
+            to={"/admin/proveedor/detail/"+row.id}
         >
         Detallar
         </Link>
@@ -55,13 +55,13 @@ function List({ tab }) {
       alert: (
         <ReactBSAlert
           warning
-          style={{ display: "block", marginTop: "-100px" }}
+          style={{ display: "block" }}
           title="¿Estás seguro?"
           onCancel={() => hideAlert()}
           onConfirm={() => {setIdDelete(id); hideAlert();}}
           showCancel
           confirmBtnBsStyle="primary"
-          confirmBtnText="Si, eliminarlo!"
+          confirmBtnText="Si, Eliminarlo!"
           cancelBtnBsStyle="danger"
           cancelBtnText="Cancelar"
           btnSize=""
@@ -82,6 +82,12 @@ function List({ tab }) {
     setDetail({});
     setToUpdate(0);
   },[]);
+
+  useEffect(() => {
+    if(idDelete){
+      deleteData(idDelete);
+    }
+  },[idDelete]);
 
   const handleDelete = (e, id) => {
     e.preventDefault();

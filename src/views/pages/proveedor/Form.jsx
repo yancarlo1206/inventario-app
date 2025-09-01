@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col } from "reactstrap";
   
 import { Link, useParams } from "react-router-dom";
-import TestContext from "context/TestContext";
+import ProveedorContext from "context/ProveedorContext";
 import ProveedorFormValidate from "../../../services/ProveedorForm";
 import { useForm } from "hooks/useForm";
 import Header from "components/Headers/Header";
@@ -18,8 +18,8 @@ const Formulario = ( ) => {
 
     const { 
         detail:data, updateData, saveData, setModule, module, setToDetail,setDetail, 
-        setToUpdate, titleViewSupport, urlViewSupport, urlManualPdf
-    } = useContext(TestContext);
+        setToUpdate
+    } = useContext(ProveedorContext);
 
     const {
         validateInit,
@@ -191,7 +191,7 @@ const Formulario = ( ) => {
                                 </Col>
                             </Row>
                             <Row className="col justify-content-end">
-                                {module == "update" ? (
+                                {module == "actualizar" ? (
                                     <Button
                                         color="primary"
                                         href=""
@@ -211,7 +211,7 @@ const Formulario = ( ) => {
                                 <Link
                                     className="btn btn-danger"
                                     color="default"
-                                    to={"/admin/test"}
+                                    to={"/admin/proveedor"}
                                     >
                                     Cancelar
                                 </Link>

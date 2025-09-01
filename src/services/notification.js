@@ -2,7 +2,7 @@ import React from "react";
 
 const viewNotification = (type, message, notificationAlertRef) => {
     let options = {
-      place: "tr",
+      place: "br",
       message: (
         <div className="alert-text">
           <span className="alert-title" data-notify="title">
