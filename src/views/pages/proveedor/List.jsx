@@ -97,7 +97,7 @@ function List({ tab }) {
   return (
     <>
     {state.alert}
-    <Header />
+    <Header brandText="Proveedores" />
     <Container className="mt--7" fluid>
       <Row>
         <div className="col">
