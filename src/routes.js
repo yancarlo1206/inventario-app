@@ -22,6 +22,7 @@ import Caracteristica from "views/pages/caracteristica/Index";
 import Categoria from "views/pages/categoria/Index";
 import Cliente from "views/pages/cliente/Index";
 import Articulo from "views/pages/articulo/Index";
+import Compra from "views/pages/compra/Index";
 
 var routes = [
   {
@@ -29,6 +30,13 @@ var routes = [
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: <Index />,
+    layout: "/admin",
+  },
+  {
+    path: "/compra",
+    name: "Compra",
+    icon: "ni ni-watch-time text-primary",
+    component: <Compra />,
     layout: "/admin",
   },
   {

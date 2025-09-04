@@ -171,7 +171,7 @@ const Formulario = ( ) => {
                                         className="form-control-label"
                                         htmlFor="input-categoria"
                                         >
-                                        Categoria <span className="text-hensall">*</span>
+                                        Categoria <span className="text-danger">*</span>
                                         </label>
                                         <Input 
                                             className="form-control"
