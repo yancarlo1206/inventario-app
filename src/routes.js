@@ -18,6 +18,9 @@
 import Index from "views/Index.js";
 import Login from "views/examples/Login.js";
 import Proveedor from "views/pages/proveedor/Index";
+import Caracteristica from "views/pages/caracteristica/Index";
+import Categoria from "views/pages/categoria/Index";
+import Cliente from "views/pages/cliente/Index";
 
 var routes = [
   {
@@ -32,6 +35,27 @@ var routes = [
     name: "Proveedor",
     icon: "ni ni-watch-time text-primary",
     component: <Proveedor />,
+    layout: "/admin",
+  },
+  {
+    path: "/cliente",
+    name: "Cliente",
+    icon: "ni ni-watch-time text-primary",
+    component: <Cliente />,
+    layout: "/admin",
+  },
+  {
+    path: "/caracteristica",
+    name: "Caracteristica",
+    icon: "ni ni-watch-time text-primary",
+    component: <Caracteristica />,
+    layout: "/admin",
+  },
+  {
+    path: "/categoria",
+    name: "Categoria",
+    icon: "ni ni-watch-time text-primary",
+    component: <Categoria />,
     layout: "/admin",
   },
   {
