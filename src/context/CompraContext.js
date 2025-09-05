@@ -93,62 +93,77 @@ const CompraProvider = ({children}) => {
     };
 
     const saveData = (data) => {
+
         setLoading(true);
         let endpoint = url;
         let proveedor = {id: data.proveedor}
-        let newData = data;
-        newData.proveedor = proveedor;
-        newData.detalles = articulosCompraEnviar;
-        delete newData.id;
-        delete newData.fecha;
+
+        let newData = {
+            ...data,
+            proveedor,
+            detalles: articulosCompraEnviar
+        };
+        
         let options = {
             body: newData,
             headers: {"content-type":"application/json"}
         }
+
         api.post(endpoint, options).then((res) => {
             if(!res.err){
                 dispatch({ type: TYPES.CREATE_DATA, payload: res.data });
                 navigate('/admin/compra/');
                 setType("success");
-                setMessage("The registry was updated correctly");
+                setMessage("El registro se guardo correctamente");
                 setStatus(1);
             }else{
 
             }
             setLoading(false);
         })
+
     }
 
     const updateData = (data) => {
+
         setLoading(true);
         let endpoint = url+"/"+data.id;
         let proveedor = {id: data.proveedor}
-        let newData = data;
-        newData.proveedor = proveedor;
-        newData.detalles = articulosCompraEnviar;
-        delete newData.id;
-        delete newData.fecha;
-        for(let i = 0; i < newData.detalles.length; i++){
-            delete newData.detalles[i].id;
-            delete newData.detalles[i].articulo.caracteristicas;
-        }
+
+        let { id, fecha, ...rest } = data;
+    
+        let newData = {
+            ...rest,
+            proveedor,
+            detalles: articulosCompraEnviar.map(item => {
+                let { id, articulo, ...itemRest } = item;
+                let { caracteristicas, ...articuloRest } = articulo;
+                return {
+                    ...itemRest,
+                    articulo: articuloRest
+                };
+            })
+        };
+
         let options = {
             body: newData,
             headers: {"content-type":"application/json"}
         }
+
         api.put(endpoint, options).then((res) => {
             if(!res.err){
                 setDetail(res.data);
                 dispatch({ type: TYPES.UPDATE_DATA, payload: res.data });
                 navigate('/admin/compra');
                 setType("success");
-                setMessage("The registry was updated correctly");
+                setMessage("El registro se actualizo correctamente");
                 setStatus(1);
             }else{
 
             }
             setLoading(false);
         })
+        
     }
 
     const deleteData = (id) => {

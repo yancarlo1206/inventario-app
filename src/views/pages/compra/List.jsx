@@ -29,6 +29,7 @@ function List({ tab }) {
 
   const columns = [
     { name: "ID", selector: row => row.id, sortable: true, width: "100px" },
+    { name: "Fecha", selector: row => row.fecha, sortable: true },
     { name: "Proveedor", selector: row => row.proveedor.nombre, sortable: true },
     { name: "Valor", selector: row => row.valor, sortable: true },
     { name: "Acciones", width: "200px", cell: row => (

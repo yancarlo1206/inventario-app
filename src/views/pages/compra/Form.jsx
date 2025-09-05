@@ -12,7 +12,6 @@ import ModalArticulo from "./Articulo";
 import ReactBSAlert from "react-bootstrap-sweetalert";
 
 const initialForm = {
-    fecha: "",
     valor: "",
     proveedor: "",
 };
@@ -139,24 +138,29 @@ const Formulario = ( ) => {
                                     <FormGroup>
                                         <label
                                         className="form-control-label"
-                                        htmlFor="input-fecha"
+                                        htmlFor="input-proveedor"
                                         >
-                                        Fecha <span className="text-danger">*</span>
+                                        Proveedor <span className="text-danger">*</span>
                                         </label>
-                                        <Input
-                                        className="form-control"
-                                        id="input-fecha"
-                                        placeholder=""
-                                        type="date"
-                                        name="fecha"
-                                        required="required"
-                                        invalid={errors.fecha !== ""}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        defaultValue={data.fecha}
-                                        />
+                                        <Input 
+                                            className="form-control"
+                                            id="input-proveedor"
+                                            type="select"
+                                            name="proveedor"
+                                            value={form.proveedor}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            invalid={errors.proveedor !== ""}
+                                            >
+                                            <option value="" hidden></option>
+                                            {proveedores.map(item => (
+                                                <option key={item.id} value={item.id}>
+                                                    {item.text}
+                                                </option>
+                                            ))};
+                                        </Input>
                                         <div className="invalid-feedback">
-                                            {errors.fecha}
+                                            {errors.proveedor}
                                         </div>
                                     </FormGroup>
                                 </Col>
@@ -182,36 +186,6 @@ const Formulario = ( ) => {
                                         />
                                         <div className="invalid-feedback">
                                             {errors.valor}
-                                        </div>
-                                    </FormGroup>
-                                </Col>
-                                <Col lg="12">
-                                    <FormGroup>
-                                        <label
-                                        className="form-control-label"
-                                        htmlFor="input-proveedor"
-                                        >
-                                        Proveedor <span className="text-danger">*</span>
-                                        </label>
-                                        <Input 
-                                            className="form-control"
-                                            id="input-proveedor"
-                                            type="select"
-                                            name="proveedor"
-                                            value={form.proveedor}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            invalid={errors.proveedor !== ""}
-                                            >
-                                            <option value="" hidden></option>
-                                            {proveedores.map(item => (
-                                                <option key={item.id} value={item.id}>
-                                                    {item.text}
-                                                </option>
-                                            ))};
-                                        </Input>
-                                        <div className="invalid-feedback">
-                                            {errors.proveedor}
                                         </div>
                                     </FormGroup>
                                 </Col>
