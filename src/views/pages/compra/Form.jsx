@@ -222,11 +222,7 @@ const Formulario = ( ) => {
                                         {articulosCompra.length > 0 ? (
                                             articulosCompra.map((item,index) => (
                                                 <tr key={index}>
-                                                    {module == "actualizar" ? (
-                                                    <td>{item.articulo.nombre}</td>
-                                                    ):(
-                                                    <td>{item.articulo_text}</td>
-                                                    )}
+                                                    <td>{item.articulo?.nombre || item.articulo_text}</td>
                                                     <td>{item.cantidad}</td>
                                                     <td>$ {item.valor_unitario}</td>
                                                     <td>$ {item.valor}</td>
