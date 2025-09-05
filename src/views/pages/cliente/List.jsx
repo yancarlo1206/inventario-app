@@ -27,12 +27,12 @@ function List({ tab }) {
   );
 
   const columns = [
-    { name: "ID", selector: row => row.id, sortable: true },
+    { name: "ID", selector: row => row.id, sortable: true, width: "100px" },
     { name: "Nombre", selector: row => row.nombre, sortable: true },
     { name: "Direccion", selector: row => row.direccion, sortable: true },
     { name: "Telefono", selector: row => row.telefono, sortable: true },
     { name: "Correo", selector: row => row.correo, sortable: true },
-    { name: "Acciones", cell: row => (
+    { name: "Acciones", width: "200px", cell: row => (
       <> 
       <Link className='btn btn-primary btn-sm'
             color="primary"

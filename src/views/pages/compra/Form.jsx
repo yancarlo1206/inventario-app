@@ -64,18 +64,18 @@ const Formulario = ( ) => {
             alert: (
             <ReactBSAlert
                 warning
-                style={{ display: "block", marginTop: "-100px" }}
-                title="Are you sure?"
+                style={{ display: "block"}}
+                title="Estas seguro?"
                 onCancel={() => hideAlert()}
                 onConfirm={() => {setIdDelete(id); hideAlert();}}
                 showCancel
-                confirmBtnBsStyle="hensall"
-                confirmBtnText="Yes, delete it!"
-                cancelBtnBsStyle="hensall-cancel"
-                cancelBtnText="Cancel"
+                confirmBtnBsStyle="primary"
+                confirmBtnText="Si, eliminarlo!"
+                cancelBtnBsStyle="danger"
+                cancelBtnText="Cancelar"
                 btnSize=""
             >
-                You won't be able to revert this!
+                No podrás revertir esto!
             </ReactBSAlert>
             )
         });
@@ -115,6 +115,7 @@ const Formulario = ( ) => {
 
     return (
       <>
+        {state.alert}
         <Header />
             <Container className="mt--7" fluid>
               <Row>
@@ -244,46 +245,42 @@ const Formulario = ( ) => {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {module == "update" ? (
-                                    articulosCompra.map(item => (
-                                        <tr key={item.id}>
-                                            <td>{item.articulo.nombre }</td>
-                                            <td>{item.cantidad}</td>
-                                            <td>CAD {item.valor_unitario}</td>
-                                            <td>CAD {item.valor}</td>
-                                            <td className="table-actions">
-                                                <a 
-                                                    className="btn-round btn-icon btn btn-warning btn-sm"
-                                                    onClick={e => confirmAlert(item.id)} 
-                                                    id="tooltip601065233"
-                                                    >
-                                                    <span className="">Borrar</span>
-                                                </a>
-                                                <UncontrolledTooltip delay={0} target="tooltip601065233">
-                                                    Borrar Articulo
-                                                </UncontrolledTooltip>
-                                            </td>
-                                        </tr>
-                                    ))    
-                                    ):(
-                                        articulosCompra.length > 0 ? (
-                                            articulosCompra.map(item => (
-                                                <tr key={item.articulo}>
+                                        {articulosCompra.length > 0 ? (
+                                            articulosCompra.map((item,index) => (
+                                                <tr key={index}>
+                                                    {module == "actualizar" ? (
+                                                    <td>{item.articulo.nombre}</td>
+                                                    ):(
                                                     <td>{item.articulo_text}</td>
+                                                    )}
                                                     <td>{item.cantidad}</td>
-                                                    <td>CAD {item.valor_unitario}</td>
-                                                    <td>CAD {item.valor}</td>
+                                                    <td>$ {item.valor_unitario}</td>
+                                                    <td>$ {item.valor}</td>
                                                     <td className="table-actions">
-                                                        <a
-                                                            className="table-action table-action-delete"
-                                                            id="tooltip601065233"
-                                                            onClick={e => confirmAlert(item.product)}
+                                                    {module == "actualizar" ? (
+                                                    <>
+                                                    <a 
+                                                        className="btn-round btn-icon btn btn-danger btn-sm"
+                                                        onClick={e => confirmAlert(item.articulo)} 
+                                                        id="tooltip601065233"
                                                         >
-                                                            <i className="fas fa-trash" />
-                                                        </a>
-                                                        <UncontrolledTooltip delay={0} target="tooltip601065233">
-                                                            Borrar Articulo
-                                                        </UncontrolledTooltip>
+                                                        <span className="">Borrar</span>
+                                                    </a>
+                                                    </>
+                                                    ):(
+                                                    <>
+                                                    <a 
+                                                        className="btn-round btn-icon btn btn-danger btn-sm"
+                                                        onClick={e => confirmAlert(item.articulo.id)} 
+                                                        id="tooltip601065233"
+                                                        >
+                                                        <span className="">Borrar</span>
+                                                    </a>
+                                                    </>
+                                                    )}
+                                                    <UncontrolledTooltip delay={0} target="tooltip601065233">
+                                                        Borrar Articulo
+                                                    </UncontrolledTooltip>
                                                     </td>
                                                 </tr>
                                             ))
@@ -295,12 +292,11 @@ const Formulario = ( ) => {
                                             </Alert>
                                             </td>
                                             </tr>
-                                        )
-                                    )}
+                                        )}
                                     </tbody>
                                 </Table>
                             </Card>
-                            <Row className="col justify-content-end">
+                            <Row className="col justify-content-end mt-4">
                                 {module == "actualizar" ? (
                                     <Button
                                         color="primary"

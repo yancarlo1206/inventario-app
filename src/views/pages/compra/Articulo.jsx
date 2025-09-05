@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import CompraContext from 'context/CompraContext';
 import { useForm } from "../../../hooks/useForm";
-import ArticuloFormValidate from "../../../services/ArticuloForm";
+import ArticuloCompraFormValidate from "../../../services/ArticuloCompraForm";
 import { Button, Col, Form, FormGroup, Input, Modal, Row, InputGroup, InputGroupAddon, InputGroupText  } from "reactstrap";
 
 const initialForm = {
@@ -14,7 +14,8 @@ const initialForm = {
 function Detail() {
 
     const { 
-        module, addAsset, addAssetSingle, verModalArticulo, setVerModalArticulo, articulos } = useContext(CompraContext);
+        module, addAsset, addAssetSingle, verModalArticulo, setVerModalArticulo, 
+        articulos, articulosCompra, addArticuloCompra } = useContext(CompraContext);
 
     const {
         validateInit,
@@ -31,7 +32,7 @@ function Detail() {
         handleBlur,
         handleBlurCombo,
         handleSubmit,
-    } = useForm(initialForm, ArticuloFormValidate.validationsForm);
+    } = useForm(initialForm, ArticuloCompraFormValidate.validationsForm);
 
     useEffect(() => {
         setForm(initialForm);
@@ -42,17 +43,7 @@ function Detail() {
         e.preventDefault();
         let valid = handleSubmit(e);
         if(valid){
-            addAsset(form);
-            setVerModalArticulo(false);
-            reset();
-        }
-    }
-
-    const handleSaveSingle = (e) => {
-        e.preventDefault();
-        let valid = handleSubmit(e);
-        if(valid){
-            addAssetSingle(form);
+            addArticuloCompra(form);
             setVerModalArticulo(false);
             reset();
         }
@@ -205,15 +196,6 @@ function Detail() {
             </div>
             <div className="modal-footer">
                 <Row className="col justify-content-end">
-                {module == "update" ? (
-                    <Button
-                        color="primary"
-                        href=""
-                        onClick={handleSaveSingle}
-                    >
-                        Agregar
-                    </Button>
-                ):(
                     <Button
                         color="primary"
                         href=""
@@ -221,7 +203,6 @@ function Detail() {
                     >
                         Agregar
                     </Button>
-                )}
                     <Button
                         className="btn btn-danger"
                         color="danger"

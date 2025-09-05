@@ -62,8 +62,10 @@ const CompraProvider = ({children}) => {
         setLoading(true);
         url = url+"/"+toUpdate;
         api.get(url).then((res) => {
-            res.data.categoria = res.data.categoria.id;
+            res.data.proveedor = res.data.proveedor.id;
             setDetail(res.data);
+            setArticulosCompra(res.data.detalles);
+            setArticulosCompraEnviar(res.data.detalles);
             setLoading(false);
         });
     };
@@ -93,10 +95,12 @@ const CompraProvider = ({children}) => {
     const saveData = (data) => {
         setLoading(true);
         let endpoint = url;
-        let categoria = {id: data.categoria}
+        let proveedor = {id: data.proveedor}
         let newData = data;
-        newData.categoria = categoria;
+        newData.proveedor = proveedor;
+        newData.detalles = articulosCompraEnviar;
         delete newData.id;
+        delete newData.fecha;
         let options = {
             body: newData,
             headers: {"content-type":"application/json"}
@@ -118,10 +122,16 @@ const CompraProvider = ({children}) => {
     const updateData = (data) => {
         setLoading(true);
         let endpoint = url+"/"+data.id;
-        let categoria = {id: data.categoria}
+        let proveedor = {id: data.proveedor}
         let newData = data;
-        newData.categoria = categoria;
+        newData.proveedor = proveedor;
+        newData.detalles = articulosCompraEnviar;
         delete newData.id;
+        delete newData.fecha;
+        for(let i = 0; i < newData.detalles.length; i++){
+            delete newData.detalles[i].id;
+            delete newData.detalles[i].articulo.caracteristicas;
+        }
         let options = {
             body: newData,
             headers: {"content-type":"application/json"}
@@ -172,6 +182,7 @@ const CompraProvider = ({children}) => {
                 return;
             }
         });
+        console.log(data);
         if(exist){
             setType("danger");
             setMessage("El Articulo ya existe");
@@ -180,19 +191,20 @@ const CompraProvider = ({children}) => {
             return;
         }else{
             setArticulosCompra((articulosCompra) => {
-                return [...articulosCompra, {"articulo":data.articulo, "articulo_text":data.nombre, "precio": data.precio,"cantidad":data.cantidad}]
+                return [...articulosCompra, {"articulo":data.articulo, "articulo_text":data.articulo_text, "cantidad": data.cantidad,"valor_unitario": data.valor_unitario,"valor": data.valor}]
             })
             setArticulosCompraEnviar((articulosCompraEnviar) => {
-                return [...articulosCompraEnviar, {"articulo":data.articulo, "precio": data.precio,"cantidad":data.cantidad}]
+                let articulo = {id:data.articulo};
+                return [...articulosCompraEnviar, {"articulo":articulo, "cantidad": data.cantidad,"valor_unitario": data.valor_unitario,"valor": data.valor}]
             })
         }
         setLoading(false);
     }
 
-    const deleteArticuloCompra = (invoice_detail) => {
+    const deleteArticuloCompra = (id_articulo) => {
         setLoading(true);
-        let newData = articulosCompra.filter((el) => el.articulo !== invoice_detail);
-        let newDataSend = articulosCompraEnviar.filter((el) => el.articulo !== invoice_detail);
+        let newData = articulosCompra.filter((el) => el.articulo !== id_articulo);
+        let newDataSend = articulosCompraEnviar.filter((el) => el.articulo !== id_articulo);
         setArticulosCompra(newData);
         setArticulosCompraEnviar(newDataSend);
         setLoading(false);
@@ -201,7 +213,7 @@ const CompraProvider = ({children}) => {
     const data = { 
         db, detail, setToDetail, setToUpdate, updateData, saveData, deleteData, module, 
         setModule, setDetail, proveedores, articulosCompra, setArticulosCompra, articulos, 
-        verModalArticulo, setVerModalArticulo, addArticuloCompra, deleteArticuloCompra 
+        verModalArticulo, setVerModalArticulo, addArticuloCompra, deleteArticuloCompra, setArticulosCompraEnviar 
     };
 
     return <CompraContext.Provider value={data}>{children}</CompraContext.Provider>;

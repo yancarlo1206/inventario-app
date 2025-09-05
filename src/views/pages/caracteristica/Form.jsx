@@ -8,10 +8,7 @@ import { useForm } from "hooks/useForm";
 import Header from "components/Headers/Header";
 
 const initialForm = {
-    nombre: "",
-    direccion: "",
-    telefono: "",
-    correo: "",
+    descripcion: "",
 };
 
 const Formulario = ( ) => {
@@ -93,24 +90,24 @@ const Formulario = ( ) => {
                                     <FormGroup>
                                         <label
                                         className="form-control-label"
-                                        htmlFor="input-nombre"
+                                        htmlFor="input-descripcion"
                                         >
                                         Descripcion <span className="text-danger">*</span>
                                         </label>
                                         <Input
                                         className="form-control"
-                                        id="input-nombre"
+                                        id="input-descripcion"
                                         placeholder=""
                                         type="text"
-                                        name="nombre"
+                                        name="descripcion"
                                         required="required"
-                                        invalid={errors.nombre !== ""}
+                                        invalid={errors.descripcion !== ""}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        defaultValue={data.nombre}
+                                        defaultValue={data.descripcion}
                                         />
                                         <div className="invalid-feedback">
-                                            {errors.nombre}
+                                            {errors.descripcion}
                                         </div>
                                     </FormGroup>
                                 </Col>

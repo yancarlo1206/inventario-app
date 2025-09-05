@@ -11,7 +11,8 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
 function List({ tab }) {
 
   const { 
-    db:data, setDetail,  setToDetail, setToUpdate, setViewModal, setModule, deleteData
+    db:data, setDetail,  setToDetail, setToUpdate, setViewModal, setModule, 
+    deleteData, setArticulosCompraEnviar, setArticulosCompra
   } = useContext(CompraContext);
 
   const [filter, setFilter] = useState("");
@@ -27,13 +28,10 @@ function List({ tab }) {
   );
 
   const columns = [
-    { name: "ID", selector: row => row.id, sortable: true },
-    { name: "Nombre", selector: row => row.nombre, sortable: true },
-    { name: "Descripcion", selector: row => row.descripcion, sortable: true },
-    { name: "Cantidad", selector: row => row.cantidad, sortable: true },
-    { name: "Categoria", selector: row => row.categoria.descripcion, sortable: true },
-    { name: "Estado", selector: row => row.estado, sortable: true },
-    { name: "Acciones", cell: row => (
+    { name: "ID", selector: row => row.id, sortable: true, width: "100px" },
+    { name: "Proveedor", selector: row => row.proveedor.nombre, sortable: true },
+    { name: "Valor", selector: row => row.valor, sortable: true },
+    { name: "Acciones", width: "200px", cell: row => (
       <> 
       <Link className='btn btn-primary btn-sm'
             color="primary"
@@ -82,6 +80,8 @@ function List({ tab }) {
   useEffect(() => {
     setDetail({});
     setToUpdate(0);
+    setArticulosCompraEnviar([]);
+    setArticulosCompra([]);
   },[]);
 
   useEffect(() => {

@@ -27,9 +27,9 @@ function List({ tab }) {
   );
 
   const columns = [
-    { name: "ID", selector: row => row.id, sortable: true },
+    { name: "ID", selector: row => row.id, sortable: true, width: "100px" },
     { name: "Descripcion", selector: row => row.descripcion, sortable: true },
-    { name: "Acciones", cell: row => (
+    { name: "Acciones", width: "200px", cell: row => (
       <> 
       <Link className='btn btn-primary btn-sm'
             color="primary"
